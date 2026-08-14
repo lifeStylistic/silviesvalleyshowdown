@@ -209,6 +209,7 @@ img{display:block;max-width:100%;}
 .sm .k{font-family:'Oswald';text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:var(--tan);font-weight:500;}
 .sm .v{font-family:'Oswald';font-weight:700;font-size:26px;color:var(--brown);margin-top:4px;}
 .sm .v.name{font-size:20px;}
+.sm .v .u{font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--tan);text-transform:uppercase;}
 .sm.hl .v{color:var(--green-d);}
 .sm.hl2 .v{color:var(--rust);}
 .sum-div{height:1px;background:var(--line);margin:22px 0 18px;}
@@ -255,9 +256,10 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   background:rgba(166,125,56,.12);border:1px dashed var(--gold-d);padding:3px 10px;border-radius:12px;}
 
 /* ============ KGB FLASH ============ */
-.kgb-flash{position:fixed;inset:0;z-index:999;background:#fff;display:flex;align-items:center;
+.kgb-flash{position:fixed;inset:0;z-index:999;display:flex;align-items:center;
   justify-content:center;opacity:0;pointer-events:none;}
-.kgb-flash img{max-width:100vw;max-height:100vh;object-fit:contain;}
+.kgb-flash img{max-width:88vw;max-height:82vh;object-fit:contain;transform:scale(.55);
+  filter:drop-shadow(0 14px 44px rgba(0,0,0,.45));}
 
 /* ============ PAGE HEADER (agenda/financials) ============ */
 .page-head{position:relative;overflow:hidden;border-bottom:4px solid var(--gold);
