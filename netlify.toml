@@ -1,0 +1,10 @@
+# Netlify continuous deployment config for the Silvies Valley Ranch Showdown site.
+# Static site — no build step. Netlify serves these files directly.
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
