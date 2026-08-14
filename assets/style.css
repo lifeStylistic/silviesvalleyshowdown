@@ -109,7 +109,7 @@ img{display:block;max-width:100%;}
 .rule{width:70px;height:3px;background:var(--gold);border-radius:2px;margin:14px auto 0;}
 
 /* ============ CARDS (CTA) ============ */
-.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.cta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .cta-card{position:relative;border-radius:16px;overflow:hidden;min-height:230px;display:flex;
   align-items:flex-end;box-shadow:0 12px 30px rgba(51,36,26,.22);border:1px solid var(--line);}
 .cta-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:.4s;}
@@ -167,6 +167,15 @@ img{display:block;max-width:100%;}
 .dc-list li:before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;border-radius:50%;
   border:1.6px solid var(--gold-d);}
 .daycard.feature .dc-list li:before{background:var(--gold);border-color:var(--gold);}
+
+/* ============ FORMAT & RULES ============ */
+.rounds{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.rounds .dc-list li{font-size:14px;}
+.pts{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;padding:2px 16px 10px;}
+.pt{background:var(--cream2);border:1px solid var(--line);border-radius:8px;padding:7px 2px 6px;text-align:center;}
+.pt span{display:block;font-family:'Oswald';font-size:9.5px;letter-spacing:.04em;color:var(--tan);text-transform:uppercase;}
+.pt b{font-family:'Oswald';font-weight:700;font-size:19px;color:var(--brown);line-height:1.1;}
+.daycard.feature .pt{background:rgba(198,154,82,.14);}
 
 /* ============ ADVENTURES ============ */
 .adv-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
@@ -275,6 +284,8 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   .cd-grid{justify-content:center;}
   .two-col,.golf-wrap{grid-template-columns:1fr;}
   .days{grid-template-columns:1fr 1fr;}
+  .rounds{grid-template-columns:1fr;}
+  .pts{grid-template-columns:repeat(3,1fr);}
   .cta-grid{grid-template-columns:1fr;}
   .sum-grid{grid-template-columns:1fr 1fr;}
   .adv-grid{grid-template-columns:1fr 1fr;}
