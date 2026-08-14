@@ -15,6 +15,15 @@
       <div class="hero-show">The Showdown &middot; 2026</div>
       <div class="hero-meta"><span>September 10&ndash;13, 2026</span><span class="dot"></span>
         <span>Seneca, Oregon</span><span class="dot"></span><span>8 Golfers</span></div>
+      <div class="countdown" id="countdown" aria-label="Countdown to the first day of the trip">
+        <div class="cd-label">Countdown to the Showdown</div>
+        <div class="cd-grid">
+          <div class="cd-cell"><b id="cd-days">&ndash;&ndash;</b><span>Days</span></div>
+          <div class="cd-cell"><b id="cd-hours">&ndash;&ndash;</b><span>Hours</span></div>
+          <div class="cd-cell"><b id="cd-mins">&ndash;&ndash;</b><span>Minutes</span></div>
+          <div class="cd-cell"><b id="cd-secs">&ndash;&ndash;</b><span>Seconds</span></div>
+        </div>
+      </div>
       <div class="hero-cta">
         <a class="btn btn-gold" href="agenda.html">View the Agenda &rarr;</a>
         <a class="btn btn-ghost" href="financials.html">Trip Financials &rarr;</a>
@@ -57,7 +66,8 @@
       <div class="sec-title serif" style="text-align:left;margin-bottom:18px;">The Roster</div>
       <div class="roster-grid"><div class="rname"><span class="rnum">01</span>James Traynor</div><div class="rname"><span class="rnum">02</span>Collin Eder</div><div class="rname"><span class="rnum">03</span>Joe Traynor</div><div class="rname"><span class="rnum">04</span>Turner Angel</div><div class="rname"><span class="rnum">05</span>Reed McNeil</div><div class="rname"><span class="rnum">06</span>Stephen Newcombe</div><div class="rname"><span class="rnum">07</span>Marcos Romero</div><div class="rname"><span class="rnum">08</span>Lance Haas</div></div>
     </div>
-    <div class="photo"><img src="assets/img/golfers.jpg" alt="Golfers at Silvies"></div>
+    <img class="crew-crest" src="assets/img/crew.webp"
+      alt="The Showdown crew crest — eight goat golfers: James Traynor, Collin Eder, Joe Traynor, Turner Angel, Reed McNeil, Stephen Newcombe, Marcos Romero, and Lance Haas">
   </div>
 </div></section>
 
@@ -81,4 +91,29 @@
   <div class="ft-loc">The Retreat at Silvies Valley Ranch<br>Seneca, Oregon</div>
   <div class="ft-links"><a href="index.html">Home</a><a href="agenda.html">Agenda</a>
     <a href="financials.html">Financials</a></div>
-</div></footer></body></html>
+</div></footer>
+<script>
+(function(){
+  var target=new Date('2026-09-10T00:00:00-07:00').getTime();
+  var box=document.getElementById('countdown');
+  if(!box)return;
+  var el={d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),
+          m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
+  function pad(n){return (n<10?'0':'')+n;}
+  function tick(){
+    var diff=target-Date.now();
+    if(diff<=0){
+      box.innerHTML='<div class="cd-label">September 10&ndash;13, 2026</div>'+
+        '<div class="cd-live">The Showdown is on. Play well, boys.</div>';
+      clearInterval(timer);return;
+    }
+    var s=Math.floor(diff/1000);
+    el.d.textContent=Math.floor(s/86400);
+    el.h.textContent=pad(Math.floor(s%86400/3600));
+    el.m.textContent=pad(Math.floor(s%3600/60));
+    el.s.textContent=pad(s%60);
+  }
+  var timer=setInterval(tick,1000);tick();
+})();
+</script>
+</body></html>
