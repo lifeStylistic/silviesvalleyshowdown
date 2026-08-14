@@ -210,6 +210,7 @@ img{display:block;max-width:100%;}
 .sm .v{font-family:'Oswald';font-weight:700;font-size:26px;color:var(--brown);margin-top:4px;}
 .sm .v.name{font-size:20px;}
 .sm .v .u{font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--tan);text-transform:uppercase;}
+.sm .v .nw{white-space:nowrap;margin-right:8px;}
 .sm.hl .v{color:var(--green-d);}
 .sm.hl2 .v{color:var(--rust);}
 .sum-div{height:1px;background:var(--line);margin:22px 0 18px;}
@@ -219,6 +220,8 @@ img{display:block;max-width:100%;}
 .progress-lbl{font-family:'Oswald';font-size:13.5px;color:var(--tan);font-weight:500;}
 .progress-lbl b{color:var(--green-d);}
 
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;}
+.table-scroll table{min-width:500px;}
 table.ledger{width:100%;border-collapse:collapse;margin-top:6px;background:#fffdf8;border-radius:12px;overflow:hidden;
   box-shadow:0 6px 18px rgba(74,53,32,.1);}
 table.ledger thead th{background:var(--espresso);color:#f4ead6;font-family:'Oswald';font-weight:500;
@@ -314,4 +317,11 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   .statband .wrap{gap:10px 4px;}.stat b{font-size:26px;}
   .cd-cell{min-width:64px;padding:9px 0 7px;}.cd-cell b{font-size:24px;}
   .cd-label{letter-spacing:.2em;}
+  .page-head .ph-in{gap:14px;padding:24px 20px;}
+  .page-head img.ph-crest{width:54px;height:54px;}
+  .page-head h1{font-size:25px;}
+  .rname{font-size:14.5px;}
+  .ft-inner{flex-direction:column;text-align:center;gap:10px;padding:24px 20px 18px;}
+  .ft-loc{margin-left:0;text-align:center;}
+  .ft-tag{font-size:16px;}
 }
