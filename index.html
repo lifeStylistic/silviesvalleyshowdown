@@ -9,7 +9,14 @@
 <meta property="og:image" content="https://silviesvalleyshowdown.com/assets/img/crew.webp">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/style.css"></head><body><header class="nav"><div class="nav-inner">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<div class="intro" id="intro" hidden>
+  <video id="intro-video" src="assets/video/showdown-trailer.mp4" muted playsinline preload="auto"></video>
+  <button class="intro-sound" id="intro-sound" type="button" hidden>&#128266;&nbsp; Tap for Sound</button>
+  <button class="btn btn-gold intro-play" id="intro-play" type="button" hidden>&#9654;&nbsp; Play the Intro</button>
+  <button class="intro-skip intro-skip-play" id="intro-skip" type="button">Skip &rarr;</button>
+</div>
+<header class="nav"><div class="nav-inner">
   <a class="nav-brand" href="index.html"><img class="nav-crest" src="assets/img/crest.png" alt="">
     <span>Silvies Valley Ranch <b>Showdown</b></span></a>
   <nav class="nav-links"><a href="index.html" class="active">Home</a><a href="agenda.html">Agenda</a><a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a></nav>
@@ -127,6 +134,53 @@
     el.s.textContent=pad(s%60);
   }
   var timer=setInterval(tick,1000);tick();
+})();
+(function(){
+  var intro=document.getElementById('intro');
+  if(!intro)return;
+  var seen=false;
+  try{seen=!!sessionStorage.getItem('showdownIntroSeen');}catch(e){}
+  if(seen){intro.parentNode.removeChild(intro);return;}
+  intro.hidden=false;
+  document.body.style.overflow='hidden';
+  var vid=document.getElementById('intro-video'),
+      sound=document.getElementById('intro-sound'),
+      playBtn=document.getElementById('intro-play'),
+      skip=document.getElementById('intro-skip'),
+      closed=false;
+  function done(){
+    if(closed)return;closed=true;
+    try{sessionStorage.setItem('showdownIntroSeen','1');}catch(e){}
+    try{vid.pause();}catch(e){}
+    intro.style.transition='opacity .9s ease';
+    intro.style.opacity='0';
+    document.body.style.overflow='';
+    setTimeout(function(){if(intro.parentNode)intro.parentNode.removeChild(intro);},920);
+  }
+  function ended(){
+    if(closed)return;
+    vid.classList.remove('on');           // fade the picture to black
+    setTimeout(done,1500);                // hold black a beat, then reveal the page
+  }
+  vid.addEventListener('ended',ended);
+  vid.addEventListener('error',done);
+  skip.addEventListener('click',done);
+  sound.addEventListener('click',function(){
+    vid.muted=false;
+    if(vid.currentTime<6){try{vid.currentTime=0;}catch(e){}}
+    sound.hidden=true;
+  });
+  playBtn.addEventListener('click',function(){
+    vid.muted=false;playBtn.hidden=true;
+    var p=vid.play();
+    if(p&&p.then){p.then(function(){vid.classList.add('on');}).catch(done);}
+    else{vid.classList.add('on');}
+  });
+  var p=vid.play();
+  if(p&&p.then){
+    p.then(function(){vid.classList.add('on');sound.hidden=false;})
+     .catch(function(){playBtn.hidden=false;});
+  }else{vid.classList.add('on');sound.hidden=false;}
 })();
 </script>
 </body></html>
