@@ -9,7 +9,14 @@
 <meta property="og:image" content="https://silviesvalleyshowdown.com/assets/img/crew.webp">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/style.css"></head><body><header class="nav"><div class="nav-inner">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<div class="intro" id="intro" hidden>
+  <video id="intro-video" src="assets/video/showdown-trailer.mp4" autoplay muted playsinline preload="auto"></video>
+  <button class="intro-sound" id="intro-sound" type="button" hidden>&#128266;&nbsp; Tap for Sound</button>
+  <button class="btn btn-gold intro-play" id="intro-play" type="button" hidden>&#9654;&nbsp; Play the Intro</button>
+  <button class="intro-skip intro-skip-play" id="intro-skip" type="button">Skip &rarr;</button>
+</div>
+<header class="nav"><div class="nav-inner">
   <a class="nav-brand" href="index.html"><img class="nav-crest" src="assets/img/crest.png" alt="">
     <span>Silvies Valley Ranch <b>Showdown</b></span></a>
   <nav class="nav-links"><a href="index.html" class="active">Home</a><a href="agenda.html">Agenda</a><a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a></nav>
@@ -127,6 +134,67 @@
     el.s.textContent=pad(s%60);
   }
   var timer=setInterval(tick,1000);tick();
+})();
+(function(){
+  var intro=document.getElementById('intro');
+  if(!intro)return;
+  var seen=false;
+  try{seen=!!sessionStorage.getItem('showdownIntroSeen');}catch(e){}
+  if(seen){intro.parentNode.removeChild(intro);return;}
+  intro.hidden=false;
+  document.body.style.overflow='hidden';
+  var vid=document.getElementById('intro-video'),
+      sound=document.getElementById('intro-sound'),
+      playBtn=document.getElementById('intro-play'),
+      skip=document.getElementById('intro-skip'),
+      closed=false,started=false;
+  vid.defaultMuted=true;vid.muted=true;
+  function done(){
+    if(closed)return;closed=true;
+    try{sessionStorage.setItem('showdownIntroSeen','1');}catch(e){}
+    try{vid.pause();}catch(e){}
+    intro.style.transition='opacity .9s ease';
+    intro.style.opacity='0';
+    document.body.style.overflow='';
+    setTimeout(function(){if(intro.parentNode)intro.parentNode.removeChild(intro);},920);
+  }
+  function ended(){
+    if(closed)return;
+    vid.classList.remove('on');           // fade the picture to black
+    setTimeout(done,1500);                // hold black a beat, then reveal the page
+  }
+  function onStarted(){
+    if(started||closed)return;started=true;
+    vid.classList.add('on');playBtn.hidden=true;
+    sound.hidden=!vid.muted;
+  }
+  function tryPlay(){
+    var p=vid.play();
+    if(p&&p.then){
+      p.then(onStarted).catch(function(){if(!started&&!closed)playBtn.hidden=false;});
+    }else{onStarted();}
+  }
+  vid.addEventListener('ended',ended);
+  vid.addEventListener('error',done);
+  vid.addEventListener('playing',onStarted);
+  vid.addEventListener('canplay',function(){if(!started&&!closed&&playBtn.hidden)tryPlay();});
+  skip.addEventListener('click',function(e){e.stopPropagation();done();});
+  sound.addEventListener('click',function(e){
+    e.stopPropagation();
+    vid.muted=false;
+    if(vid.currentTime<6){try{vid.currentTime=0;}catch(err){}}
+    sound.hidden=true;
+  });
+  playBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    vid.muted=false;sound.hidden=true;tryPlay();
+  });
+  intro.addEventListener('pointerdown',function(e){
+    if(started||closed)return;
+    if(e.target===skip)return;
+    vid.muted=false;sound.hidden=true;tryPlay();   // any tap starts it, with sound
+  });
+  tryPlay();
 })();
 </script>
 </body></html>
