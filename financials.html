@@ -97,7 +97,7 @@
   <div class="ft-links"><a href="index.html">Home</a><a href="agenda.html">Agenda</a>
     <a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a></div>
 </div></footer>
-<div class="kgb-flash" id="kgb" aria-hidden="true"><img src="assets/img/kgb-head.webp" alt=""></div>
+<div class="kgb-flash" id="kgb" aria-hidden="true"><img src="assets/img/kgb.webp" alt=""></div>
 <script>
 (function(){
   var box=document.getElementById('kgb'),img=box.querySelector('img');
@@ -107,6 +107,11 @@
       img.style.transition='transform 150ms cubic-bezier(.34,1.56,.64,1)';
       img.style.transform='scale(1)';
       setTimeout(function(){box.style.transition='opacity 420ms ease-out';box.style.opacity='0';},320);
+      setTimeout(function(){
+        box.style.zIndex='50';
+        box.style.transition='opacity 1500ms ease-in';
+        box.style.opacity='0.07';
+      },1200);
     },1500);
   }
   window.addEventListener('load',function(){
