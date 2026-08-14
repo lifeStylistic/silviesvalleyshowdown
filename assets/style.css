@@ -66,6 +66,20 @@ img{display:block;max-width:100%;}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;}
 .hero-crest-img{width:290px;height:auto;flex:0 0 auto;filter:drop-shadow(0 8px 22px rgba(0,0,0,.6));}
 
+/* countdown */
+.countdown{margin-top:26px;}
+.cd-label{font-family:'Oswald';text-transform:uppercase;letter-spacing:.3em;font-size:12px;
+  font-weight:500;color:var(--gold-l);margin-bottom:10px;}
+.cd-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.cd-cell{background:rgba(29,20,12,.55);border:1px solid rgba(216,182,117,.45);border-radius:10px;
+  padding:11px 0 9px;text-align:center;min-width:76px;backdrop-filter:blur(3px);}
+.cd-cell b{display:block;font-family:'Oswald';font-weight:700;font-size:30px;line-height:1;
+  color:#fbf6ec;font-feature-settings:"tnum";}
+.cd-cell span{font-family:'Oswald';text-transform:uppercase;letter-spacing:.14em;font-size:10.5px;
+  color:var(--gold-l);}
+.cd-live{font-family:'Playfair Display';font-weight:700;font-size:26px;color:#fbf6ec;
+  text-shadow:0 2px 10px rgba(0,0,0,.5);}
+
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Oswald';font-weight:600;
   text-transform:uppercase;letter-spacing:.07em;font-size:14px;padding:13px 22px;border-radius:9px;
@@ -116,6 +130,8 @@ img{display:block;max-width:100%;}
   width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
 .photo{border-radius:14px;overflow:hidden;box-shadow:0 10px 26px rgba(51,36,26,.2);border:1px solid var(--line);}
 .photo img{width:100%;height:100%;object-fit:cover;}
+.crew-crest{width:100%;max-width:440px;margin:0 auto;justify-self:center;
+  filter:drop-shadow(0 12px 28px rgba(51,36,26,.38));}
 
 /* ============ GOLF ============ */
 .golf-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;}
@@ -256,6 +272,7 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   .hero-crest-img{width:210px;order:-1;}
   .hero-title{font-size:46px;}.hero-cta{justify-content:center;}
   .hero-meta{justify-content:center;}
+  .cd-grid{justify-content:center;}
   .two-col,.golf-wrap{grid-template-columns:1fr;}
   .days{grid-template-columns:1fr 1fr;}
   .cta-grid{grid-template-columns:1fr;}
@@ -270,4 +287,6 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   table.ledger td,table.ledger th{padding:9px 8px;font-size:12.5px;}
   .hide-sm{display:none;}
   .statband .wrap{gap:10px 4px;}.stat b{font-size:26px;}
+  .cd-cell{min-width:64px;padding:9px 0 7px;}.cd-cell b{font-size:24px;}
+  .cd-label{letter-spacing:.2em;}
 }
