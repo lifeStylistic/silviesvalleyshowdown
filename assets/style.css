@@ -209,6 +209,7 @@ img{display:block;max-width:100%;}
 .sm .k{font-family:'Oswald';text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:var(--tan);font-weight:500;}
 .sm .v{font-family:'Oswald';font-weight:700;font-size:26px;color:var(--brown);margin-top:4px;}
 .sm .v.name{font-size:20px;}
+.sm .v .u{font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--tan);text-transform:uppercase;}
 .sm.hl .v{color:var(--green-d);}
 .sm.hl2 .v{color:var(--rust);}
 .sum-div{height:1px;background:var(--line);margin:22px 0 18px;}
@@ -254,12 +255,22 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
 .tbd{font-family:'Oswald';font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-d);
   background:rgba(166,125,56,.12);border:1px dashed var(--gold-d);padding:3px 10px;border-radius:12px;}
 
+/* ============ KGB FLASH ============ */
+.kgb-flash{position:fixed;inset:0;z-index:999;display:flex;align-items:center;
+  justify-content:center;opacity:0;pointer-events:none;}
+.kgb-flash img{max-width:88vw;max-height:82vh;object-fit:contain;transform:scale(.55);
+  filter:drop-shadow(0 14px 44px rgba(0,0,0,.45));}
+
 /* ============ PAGE HEADER (agenda/financials) ============ */
 .page-head{position:relative;overflow:hidden;border-bottom:4px solid var(--gold);
   background:linear-gradient(135deg,#3d2a1b,#5c3d26 70%,#6f4a2d);}
 .page-head .ph-in{max-width:var(--maxw);margin:0 auto;padding:30px 24px;display:flex;align-items:center;gap:20px;}
 .page-head img.ph-crest{width:74px;height:74px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4));}
 .page-head h1{font-family:'Playfair Display';font-weight:900;font-size:34px;color:#fbf6ec;}
+.page-head .ph-quote{font-family:'Arial Black','Arial Bold',Arial,sans-serif;font-weight:900;
+  font-size:32px;line-height:1.1;color:#fff;margin-top:8px;letter-spacing:.01em;
+  text-shadow:0 2px 10px rgba(0,0,0,.35);}
+@media (max-width:560px){.page-head .ph-quote{font-size:22px;}}
 .page-head .ph-sub{font-family:'Oswald';text-transform:uppercase;letter-spacing:.16em;font-size:12.5px;
   color:var(--gold-l);margin-top:5px;}
 

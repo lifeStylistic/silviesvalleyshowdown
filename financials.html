@@ -8,6 +8,7 @@
 <section class="page-head"><div class="ph-in">
   <img class="ph-crest" src="assets/img/crest.png" alt="">
   <div><h1 class="serif">Trip Financials</h1>
+    <div class="ph-quote">&ldquo;Pay That Man His Money&hellip;&rdquo;</div>
     <div class="ph-sub">Lodging Reimbursement &bull; Snapshot as of Aug 13, 2026</div></div>
 </div></section>
 
@@ -22,7 +23,7 @@
     <div class="sum-grid">
       <div class="sm"><div class="k">Total Lodging</div><div class="v">$5,805.93</div></div>
       <div class="sm"><div class="k">Paid Upfront By</div><div class="v name">James Traynor</div></div>
-      <div class="sm"><div class="k">Guests &middot; Nights</div><div class="v">8 &middot; 3</div></div>
+      <div class="sm"><div class="k">Guests &middot; Nights</div><div class="v">8 <span class="u">Guests</span> &nbsp;3 <span class="u">Nights</span></div></div>
       <div class="sm"><div class="k">Per-Person Share</div><div class="v">&#8776; $725.74</div></div>
     </div>
     <div class="sum-div"></div>
@@ -95,4 +96,27 @@
   <div class="ft-loc">The Retreat at Silvies Valley Ranch<br>Seneca, Oregon</div>
   <div class="ft-links"><a href="index.html">Home</a><a href="agenda.html">Agenda</a>
     <a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a></div>
-</div></footer></body></html>
+</div></footer>
+<div class="kgb-flash" id="kgb" aria-hidden="true"><img src="assets/img/kgb.webp" alt=""></div>
+<script>
+(function(){
+  var box=document.getElementById('kgb'),img=box.querySelector('img');
+  function go(){
+    setTimeout(function(){
+      box.style.transition='none';box.style.opacity='1';
+      img.style.transition='transform 150ms cubic-bezier(.34,1.56,.64,1)';
+      img.style.transform='scale(1)';
+      setTimeout(function(){
+        box.style.zIndex='50';
+        box.style.transition='opacity 2000ms ease-out';
+        box.style.opacity='0.07';
+      },1000);
+    },1500);
+  }
+  window.addEventListener('load',function(){
+    if(img.complete&&img.naturalWidth>0){go();}
+    else{img.addEventListener('load',go);}
+  });
+})();
+</script>
+</body></html>
