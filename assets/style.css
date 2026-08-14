@@ -64,7 +64,7 @@ img{display:block;max-width:100%;}
   font-size:16px;font-weight:500;color:#efe6d3;letter-spacing:.04em;}
 .hero-meta .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;}
-.hero-crest-link{flex:0 0 auto;display:block;}
+.hero-crest-link{flex:0 0 auto;display:block;background:none;border:0;padding:0;cursor:pointer;}
 .hero-crest-img{width:290px;height:auto;filter:drop-shadow(0 8px 22px rgba(0,0,0,.6));transition:transform .2s;}
 .hero-crest-link:hover .hero-crest-img{transform:scale(1.03) rotate(-1.5deg);}
 
@@ -257,6 +257,17 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
 .c-basis{color:var(--tan);font-size:12.5px;}
 .tbd{font-family:'Oswald';font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-d);
   background:rgba(166,125,56,.12);border:1px dashed var(--gold-d);padding:3px 10px;border-radius:12px;}
+
+/* ============ GOAT FIGHT EASTER EGG ============ */
+.gf{position:fixed;inset:0;z-index:999;pointer-events:none;overflow:hidden;}
+.gf .goat,.gf .p,.gf .boom,.gf .dizzy{position:absolute;left:0;top:0;line-height:1;will-change:transform;}
+.gf .p{font-size:26px;}
+.gf .boom{font-size:clamp(110px,26vw,230px);transform:scale(0);}
+.gf .smoke{position:absolute;left:0;top:0;width:130px;height:130px;border-radius:50%;
+  background:radial-gradient(circle,rgba(214,203,186,.95),rgba(214,203,186,0) 70%);
+  filter:blur(3px);will-change:transform,opacity;}
+@keyframes gf-shake{0%,100%{transform:none}20%{transform:translate(-9px,7px)}
+  40%{transform:translate(8px,-6px)}60%{transform:translate(-6px,5px)}80%{transform:translate(4px,-3px)}}
 
 /* ============ KGB FLASH ============ */
 .kgb-flash{position:fixed;inset:0;z-index:999;display:flex;align-items:center;
