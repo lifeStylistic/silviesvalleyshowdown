@@ -28,6 +28,11 @@ a{color:inherit;text-decoration:none;}
 img{display:block;max-width:100%;}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
 
+/* ============ TILE TRANSITION ============ */
+html.tilecover body{visibility:hidden;}
+.tilecv{position:fixed;inset:0;width:100vw;height:100vh;z-index:3000;pointer-events:none;
+  visibility:visible;}
+
 /* ============ INTRO (auto-play trailer) ============ */
 .intro{position:fixed;inset:0;z-index:2000;background:#000;}
 .intro[hidden]{display:none;}
