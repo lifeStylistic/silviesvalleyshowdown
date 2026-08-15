@@ -44,8 +44,12 @@
     var a=e.target&&e.target.closest?e.target.closest('a'):null;
     if(!a)return;
     if(a.target==='_blank'||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
-    var href=a.getAttribute('href')||'';
-    if(/^https?:/i.test(href)||!/\.html($|#)/.test(href))return;
+    var raw=a.getAttribute('href')||'';
+    if(!raw||raw.charAt(0)==='#')return;
+    var u;try{u=new URL(a.href,location.href);}catch(err){return;}
+    if(u.origin!==location.origin)return;          // external links untouched
+    if(u.pathname===location.pathname)return;      // same-page anchors untouched
+    var href=u.href;
     e.preventDefault();
     var g=buildOverlay();
     g.tiles.forEach(function(t){
