@@ -4,7 +4,7 @@
   var SHADES=['#33241a','#3a2a1e','#2c1f16','#41301f','#372718'];
   function buildOverlay(){
     var ov=document.createElement('div');ov.className='tilefx';
-    var ts=Math.max(44,Math.min(64,Math.floor(window.innerWidth/14)));
+    var ts=Math.ceil(Math.max(16,Math.sqrt(window.innerWidth*window.innerHeight/1400)));
     var cols=Math.ceil(window.innerWidth/ts),rows=Math.ceil(window.innerHeight/ts);
     ov.style.gridTemplateColumns='repeat('+cols+',1fr)';
     ov.style.gridTemplateRows='repeat('+rows+',1fr)';
