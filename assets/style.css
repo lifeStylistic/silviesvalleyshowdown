@@ -30,9 +30,8 @@ img{display:block;max-width:100%;}
 
 /* ============ TILE TRANSITION ============ */
 html.tilecover body{visibility:hidden;}
-.tilecv{position:fixed;inset:0;width:100vw;height:100vh;z-index:3000;pointer-events:none;}
-.tilefade{position:fixed;inset:0;background:#000;z-index:3000;pointer-events:none;
-  visibility:visible;opacity:1;transition:opacity .4s ease;}
+.tilecv{position:fixed;inset:0;width:100vw;height:100vh;z-index:3000;pointer-events:none;
+  visibility:visible;}
 
 /* ============ INTRO (auto-play trailer) ============ */
 .intro{position:fixed;inset:0;z-index:2000;background:#000;}
