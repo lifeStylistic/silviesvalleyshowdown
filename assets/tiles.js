@@ -1,45 +1,69 @@
-/* Tile-fall page transition */
+/* Page-shatter transition: the live page breaks into tiles of itself and falls away */
 (function(){
   var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var SHADES=['#33241a','#3a2a1e','#2c1f16','#41301f','#372718'];
-  function buildOverlay(){
-    var ov=document.createElement('div');ov.className='tilefx';
-    var ts=Math.ceil(Math.max(16,Math.sqrt(window.innerWidth*window.innerHeight/1400)));
-    var cols=Math.ceil(window.innerWidth/ts),rows=Math.ceil(window.innerHeight/ts);
-    ov.style.gridTemplateColumns='repeat('+cols+',1fr)';
-    ov.style.gridTemplateRows='repeat('+rows+',1fr)';
-    var tiles=[];
-    for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
-      var t=document.createElement('div');t.className='tile';
-      t.style.background=SHADES[(r*7+c*13)%SHADES.length];
-      tiles.push({el:t,r:r,c:c});
-      ov.appendChild(t);
-    }
-    document.body.appendChild(ov);
-    return {ov:ov,tiles:tiles};
-  }
-  /* ARRIVAL: page loads pre-covered, tiles rain off to reveal it */
+
+  /* ARRIVAL: page loads black, quick fade-in */
   var covered=document.documentElement.classList.contains('tilecover');
   if(covered){
     try{sessionStorage.removeItem('tileNav');}catch(e){}
-    if(reduced){
-      document.documentElement.classList.remove('tilecover');
-    }else{
-      var g=buildOverlay();
-      document.documentElement.classList.remove('tilecover');
-      requestAnimationFrame(function(){requestAnimationFrame(function(){
-        g.tiles.forEach(function(t){
-          var d=Math.round(t.r*45+Math.random()*380);
-          t.el.style.transition='transform .85s cubic-bezier(.5,0,.85,.4) '+d+'ms, opacity .85s ease-in '+d+'ms';
-          t.el.style.transform='translateY(115vh) rotate('+Math.round(Math.random()*50-25)+'deg)';
-          t.el.style.opacity='0.9';
-        });
-        setTimeout(function(){if(g.ov.parentNode)g.ov.parentNode.removeChild(g.ov);},1900);
-      });});
-    }
+    var f=document.createElement('div');f.className='tilefade';
+    document.body.appendChild(f);
+    document.documentElement.classList.remove('tilecover');
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
+      f.style.opacity='0';
+      setTimeout(function(){if(f.parentNode)f.parentNode.removeChild(f);},450);
+    });});
   }
-  /* EXIT: tile the page over, then navigate */
+
   if(reduced)return;
+  var busy=false;
+
+  function shatter(snap,nav){
+    var W=window.innerWidth,H=window.innerHeight;
+    var scale=snap.width/W;
+    var cv=document.createElement('canvas');cv.className='tilecv';
+    cv.width=snap.width;cv.height=snap.height;
+    document.body.appendChild(cv);
+    var ctx=cv.getContext('2d');
+    ctx.drawImage(snap,0,0);
+    var ts=Math.ceil(Math.max(16,Math.sqrt(W*H/1400)));
+    var cols=Math.ceil(W/ts),rows=Math.ceil(H/ts);
+    var tiles=[];
+    for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
+      tiles.push({x:c*ts,y:r*ts,
+        delay:(r/rows)*550+Math.random()*350,
+        vy:40+Math.random()*160,
+        vr:(Math.random()-0.5)*3});
+    }
+    var G=2800,tss=ts*scale,start=null;
+    function frame(tm){
+      if(start===null)start=tm;
+      var t=(tm-start)/1000,alive=false;
+      ctx.fillStyle='#000';
+      ctx.fillRect(0,0,cv.width,cv.height);
+      for(var i=0;i<tiles.length;i++){
+        var p=tiles[i],lt=t-p.delay/1000;
+        var dy=0,rot=0;
+        if(lt>0){dy=p.vy*lt+0.5*G*lt*lt;rot=p.vr*lt;}
+        if(p.y+dy<H+ts*2){
+          alive=true;
+          if(rot){
+            ctx.save();
+            ctx.translate((p.x+ts/2)*scale,(p.y+dy+ts/2)*scale);
+            ctx.rotate(rot*0.25);
+            ctx.drawImage(snap,p.x*scale,p.y*scale,tss,tss,-tss/2,-tss/2,tss,tss);
+            ctx.restore();
+          }else{
+            ctx.drawImage(snap,p.x*scale,p.y*scale,tss,tss,p.x*scale,(p.y+dy)*scale,tss,tss);
+          }
+        }
+      }
+      if(alive){requestAnimationFrame(frame);}
+      else{setTimeout(nav,120);}
+    }
+    requestAnimationFrame(frame);
+  }
+
   document.addEventListener('click',function(e){
     var a=e.target&&e.target.closest?e.target.closest('a'):null;
     if(!a)return;
@@ -51,25 +75,35 @@
     if(u.pathname===location.pathname)return;      // same-page anchors untouched
     var href=u.href;
     e.preventDefault();
-    var g=buildOverlay();
-    g.tiles.forEach(function(t){
-      t.el.style.opacity='0';
-      t.el.style.transform='translateY(-26px) scale(.85)';
-      t.el.style.transition='transform .18s ease-out '+Math.round(Math.random()*240)+'ms, opacity .18s ease-out '+Math.round(Math.random()*240)+'ms';
-    });
-    requestAnimationFrame(function(){requestAnimationFrame(function(){
-      g.tiles.forEach(function(t){t.el.style.opacity='1';t.el.style.transform='none';});
-    });});
-    setTimeout(function(){
+    if(busy)return;busy=true;
+    function nav(){
       try{sessionStorage.setItem('tileNav','1');}catch(err){}
       location.href=href;
-    },520);
+    }
+    if(!window.html2canvas){nav();return;}
+    var fired=false;
+    var to=setTimeout(function(){fired=true;nav();},1500); // snapshot too slow -> plain nav
+    try{
+      window.html2canvas(document.body,{
+        x:window.scrollX,y:window.scrollY,
+        width:window.innerWidth,height:window.innerHeight,
+        windowWidth:window.innerWidth,windowHeight:window.innerHeight,
+        scale:Math.min(window.devicePixelRatio||1,2),
+        useCORS:true,logging:false
+      }).then(function(snap){
+        clearTimeout(to);
+        if(!fired)shatter(snap,nav);
+      }).catch(function(){clearTimeout(to);if(!fired)nav();});
+    }catch(err){clearTimeout(to);if(!fired)nav();}
   },true);
-  /* back/forward cache: never leave a stale overlay up */
+
+  /* back/forward cache: never leave stale overlays up */
   window.addEventListener('pageshow',function(e){
     if(e.persisted){
-      var o=document.querySelector('.tilefx');
+      busy=false;
+      var o=document.querySelector('.tilecv'),g=document.querySelector('.tilefade');
       if(o&&o.parentNode)o.parentNode.removeChild(o);
+      if(g&&g.parentNode)g.parentNode.removeChild(g);
       document.documentElement.classList.remove('tilecover');
     }
   });
