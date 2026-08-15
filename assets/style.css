@@ -299,6 +299,9 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   justify-content:center;opacity:0;pointer-events:none;}
 .kgb-flash img{max-width:88vw;max-height:82vh;object-fit:contain;transform:scale(.55);
   filter:drop-shadow(0 14px 44px rgba(0,0,0,.45));}
+.kgb-flash.kgb-tap{pointer-events:auto;cursor:pointer;}
+.kgb-flash.talking img{animation:kgbTalk .48s ease-in-out infinite;}
+@keyframes kgbTalk{0%,100%{transform:scale(1) rotate(-1.3deg);}50%{transform:scale(1.035) rotate(1.5deg);}}
 
 /* ============ PAGE HEADER (agenda/financials) ============ */
 .page-head{position:relative;overflow:hidden;border-bottom:4px solid var(--gold);
