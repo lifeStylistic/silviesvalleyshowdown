@@ -133,20 +133,10 @@
     var au=document.getElementById('kgb-voice');
     box.style.transition='opacity .45s ease';box.style.opacity='1';box.style.zIndex='999';
     box.classList.add('talking');
-    var say=document.createElement('div');say.className='kgb-say';document.body.appendChild(say);
-    var timers=[];
-    function line(t,txt){timers.push(setTimeout(function(){say.textContent=txt;},t));}
-    line(650,'“Pay that man his money…”');
-    line(4250,'“Pay that man his money… CHECK.”');
-    line(5200,'“Pay that man his money… CHECK. CHECK.”');
-    line(5900,'“Pay that man his money… CHECK. CHECK. CHECK.”');
     var finished=false;
     function finish(){
       if(finished)return;finished=true;
-      timers.forEach(clearTimeout);
       box.classList.remove('talking');
-      say.style.transition='opacity .6s ease';say.style.opacity='0';
-      setTimeout(function(){if(say.parentNode)say.parentNode.removeChild(say);},650);
       box.style.transition='opacity 1200ms ease-out';box.style.opacity='0.18';
       setTimeout(function(){box.style.zIndex='50';talking=false;},1250);
     }
