@@ -6,6 +6,19 @@
     try{sessionStorage.removeItem('tileNav');sessionStorage.removeItem('tileSnap');}catch(e){}
   }
 
+  /* Generic engine: cover the screen with `src` (canvas or image sized to the
+     viewport) and shatter it into falling tiles over whatever is beneath. */
+  window.tileShatter=function(src){
+    var W=window.innerWidth,H=window.innerHeight;
+    var cv=document.createElement('canvas');cv.className='tilecv';
+    cv.width=src.width;cv.height=src.height;
+    var scale=src.width/W;
+    document.body.appendChild(cv);
+    var ctx=cv.getContext('2d');
+    ctx.drawImage(src,0,0);
+    shatterRun(cv,ctx,src,W,H,scale);
+  };
+
   /* ARRIVAL: new page loads covered by the old page's snapshot, which shatters off */
   var covered=document.documentElement.classList.contains('tilecover');
   if(covered){
@@ -21,7 +34,8 @@
       var img=new Image();
       img.onload=function(){
         clearTimeout(bail);
-        shatter(img);
+        window.tileShatter(img);
+        document.documentElement.classList.remove('tilecover'); // new page live beneath the cover
       };
       img.onerror=function(){
         clearTimeout(bail);
@@ -31,15 +45,7 @@
     }
   }
 
-  function shatter(img){
-    var W=window.innerWidth,H=window.innerHeight;
-    var cv=document.createElement('canvas');cv.className='tilecv';
-    cv.width=img.width;cv.height=img.height;
-    var scale=img.width/W;
-    document.body.appendChild(cv);
-    var ctx=cv.getContext('2d');
-    ctx.drawImage(img,0,0);
-    document.documentElement.classList.remove('tilecover'); // new page now live beneath the cover
+  function shatterRun(cv,ctx,img,W,H,scale){
     var ts=Math.ceil(Math.max(16,Math.sqrt(W*H/1400)));
     var cols=Math.ceil(W/ts),rows=Math.ceil(H/ts);
     var tiles=[];

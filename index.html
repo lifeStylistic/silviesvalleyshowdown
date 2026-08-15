@@ -164,10 +164,33 @@
     document.body.style.overflow='';
     setTimeout(function(){if(intro.parentNode)intro.parentNode.removeChild(intro);},920);
   }
-  function ended(){
+  function shatterOut(){
     if(closed)return;
-    vid.classList.remove('on');           // fade the picture to black
-    setTimeout(done,1500);                // hold black a beat, then reveal the page
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){done();return;}
+    var cv=null;
+    try{
+      if(window.tileShatter){
+        var W=window.innerWidth,H=window.innerHeight,
+            dpr=Math.min(window.devicePixelRatio||1,1.5);
+        cv=document.createElement('canvas');
+        cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+        var ctx=cv.getContext('2d');
+        ctx.fillStyle='#000';ctx.fillRect(0,0,cv.width,cv.height);
+        if(vid.videoWidth&&vid.readyState>=2){
+          var vr=vid.videoWidth/vid.videoHeight,sr=W/H,dw,dh,dx,dy;
+          if(vr>sr){dw=W;dh=W/vr;dx=0;dy=(H-dh)/2;}
+          else{dh=H;dw=H*vr;dy=0;dx=(W-dw)/2;}
+          ctx.drawImage(vid,dx*dpr,dy*dpr,dw*dpr,dh*dpr);
+        }
+      }
+    }catch(e){cv=null;}
+    if(!cv){done();return;}
+    closed=true;
+    try{sessionStorage.setItem('showdownIntroSeen','1');}catch(e){}
+    try{vid.pause();}catch(e){}
+    document.body.style.overflow='';
+    if(intro.parentNode)intro.parentNode.removeChild(intro);
+    window.tileShatter(cv);               // last frame rains off, homepage beneath
   }
   function onStarted(){
     if(started||closed)return;started=true;
@@ -180,11 +203,11 @@
       p.then(onStarted).catch(function(){if(!started&&!closed)playBtn.hidden=false;});
     }else{onStarted();}
   }
-  vid.addEventListener('ended',ended);
+  vid.addEventListener('ended',shatterOut);
   vid.addEventListener('error',done);
   vid.addEventListener('playing',onStarted);
   vid.addEventListener('canplay',function(){if(!started&&!closed&&playBtn.hidden)tryPlay();});
-  skip.addEventListener('click',function(e){e.stopPropagation();done();});
+  skip.addEventListener('click',function(e){e.stopPropagation();shatterOut();});
   sound.addEventListener('click',function(e){
     e.stopPropagation();
     vid.muted=false;
