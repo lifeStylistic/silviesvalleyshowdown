@@ -108,9 +108,10 @@
     <a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a></div>
 </div></footer>
 <div class="kgb-flash" id="kgb" aria-hidden="true"><img src="assets/img/kgb.webp" alt=""></div>
+<audio id="kgb-voice" src="assets/audio/kgb-voice.mp3" preload="none"></audio>
 <script>
 (function(){
-  var box=document.getElementById('kgb'),img=box.querySelector('img');
+  var box=document.getElementById('kgb'),img=box.querySelector('img'),talking=false;
   function go(){
     setTimeout(function(){
       box.style.transition='none';box.style.opacity='1';
@@ -121,7 +122,39 @@
         box.style.transition='opacity 2000ms ease-out';
         box.style.opacity='0.18';
       },1000);
+      setTimeout(function(){
+        box.classList.add('kgb-tap');
+        box.addEventListener('click',speak);
+      },3100);
     },1500);
+  }
+  function speak(){
+    if(talking)return;talking=true;
+    var au=document.getElementById('kgb-voice');
+    box.style.transition='opacity .45s ease';box.style.opacity='1';box.style.zIndex='999';
+    box.classList.add('talking');
+    var say=document.createElement('div');say.className='kgb-say';document.body.appendChild(say);
+    var timers=[];
+    function line(t,txt){timers.push(setTimeout(function(){say.textContent=txt;},t));}
+    line(650,'“Pay that man his money…”');
+    line(4250,'“Pay that man his money… CHECK.”');
+    line(5200,'“Pay that man his money… CHECK. CHECK.”');
+    line(5900,'“Pay that man his money… CHECK. CHECK. CHECK.”');
+    var finished=false;
+    function finish(){
+      if(finished)return;finished=true;
+      timers.forEach(clearTimeout);
+      box.classList.remove('talking');
+      say.style.transition='opacity .6s ease';say.style.opacity='0';
+      setTimeout(function(){if(say.parentNode)say.parentNode.removeChild(say);},650);
+      box.style.transition='opacity 1200ms ease-out';box.style.opacity='0.18';
+      setTimeout(function(){box.style.zIndex='50';talking=false;},1250);
+    }
+    var safety=setTimeout(finish,11000);
+    au.onended=function(){clearTimeout(safety);setTimeout(finish,500);};
+    try{au.currentTime=0;}catch(e){}
+    var p=au.play();
+    if(p&&p.catch)p.catch(function(){});   // audio blocked? the show goes on silently
   }
   window.addEventListener('load',function(){
     if(img.complete&&img.naturalWidth>0){go();}
