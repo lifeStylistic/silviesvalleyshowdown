@@ -25,7 +25,7 @@
 <header class="nav"><div class="nav-inner">
   <a class="nav-brand" href="index.html"><img class="nav-crest" src="assets/img/crest.png" alt="">
     <span>Silvies Valley Ranch <b>Showdown</b></span></a>
-  <nav class="nav-links"><a href="index.html" class="active">Home</a><a href="agenda.html">Agenda</a><a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a></nav>
+  <nav class="nav-links"><a href="index.html" class="active">Home</a><a href="agenda.html">Agenda</a><a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a><a href="index.html#anthem">Anthem</a></nav>
 </div></header>
 <section class="hero">
   <img class="hero-bg" src="assets/img/hero.jpg" alt="">
@@ -111,12 +111,35 @@
     <div class="photo"><img src="assets/img/goat.jpg" alt="Goat caddie at Silvies"></div>
   </div>
 </div></section>
+
+<section class="section alt"><div class="wrap">
+  <div class="sec-head"><div class="sec-eyebrow">Crank It Up</div>
+    <div class="sec-title serif">The Official Anthem</div><div class="rule"></div>
+    <div class="sec-sub">One song. Eight legends. Play it loud.</div></div>
+  <div class="anthem" id="anthem">
+    <img class="an-cover" id="an-cover" src="assets/img/anthem-cover.jpg" alt="Silvies Valley Showdown anthem cover art">
+    <div class="an-body">
+      <div class="an-kicker">The Showdown Sessions</div>
+      <div class="an-title serif">&ldquo;Silvies Valley Showdown&rdquo;</div>
+      <div class="an-controls">
+        <button class="an-play" id="an-play" type="button" aria-label="Play the anthem">
+          <span class="an-tri"></span><span class="an-pause"><i></i><i></i></span>
+        </button>
+        <div class="an-track">
+          <div class="an-bar" id="an-bar"><div class="an-fill" id="an-fill"></div></div>
+          <div class="an-time"><span id="an-cur">0:00</span><span id="an-dur">4:12</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+<audio id="anthem-audio" src="assets/audio/anthem.mp3" preload="metadata"></audio>
 <footer class="site-footer"><div class="ft-inner">
   <div class="ft-badge"><img src="assets/img/logo.png" alt="Silvies Valley Ranch"></div>
   <div class="ft-tag">8 Guys &bull; 3 Nights &bull; A Ridiculous Amount of Golf</div>
   <div class="ft-loc">The Retreat at Silvies Valley Ranch<br>Seneca, Oregon</div>
   <div class="ft-links"><a href="index.html">Home</a><a href="agenda.html">Agenda</a>
-    <a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a></div>
+    <a href="format.html">Format<span class="hide-sm"> &amp; Rules</span></a><a href="financials.html">Financials</a><a href="index.html#anthem">Anthem</a></div>
 </div></footer>
 <script>
 (function(){
@@ -140,6 +163,44 @@
     el.s.textContent=pad(s%60);
   }
   var timer=setInterval(tick,1000);tick();
+})();
+(function(){
+  var au=document.getElementById('anthem-audio'),box=document.getElementById('anthem');
+  if(!au||!box)return;
+  var btn=document.getElementById('an-play'),bar=document.getElementById('an-bar'),
+      fill=document.getElementById('an-fill'),cur=document.getElementById('an-cur'),
+      dur=document.getElementById('an-dur');
+  function fmt(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+((s%60<10?'0':'')+s%60);}
+  function toggle(){
+    if(au.paused){
+      box.classList.add('loading');                 // instant feedback while the mp3 buffers
+      var p=au.play();
+      if(p&&p.catch)p.catch(function(){box.classList.remove('loading');});
+    }else{au.pause();}
+  }
+  btn.addEventListener('click',toggle);
+  document.getElementById('an-cover').addEventListener('click',toggle);
+  au.addEventListener('play',function(){box.classList.add('playing');});
+  au.addEventListener('playing',function(){box.classList.remove('loading');});
+  au.addEventListener('waiting',function(){box.classList.add('loading');});
+  au.addEventListener('pause',function(){box.classList.remove('playing');box.classList.remove('loading');});
+  au.addEventListener('ended',function(){
+    box.classList.remove('playing');fill.style.width='0';cur.textContent='0:00';
+    try{au.currentTime=0;}catch(e){}
+  });
+  au.addEventListener('loadedmetadata',function(){dur.textContent=fmt(au.duration);});
+  au.addEventListener('timeupdate',function(){
+    if(au.duration)fill.style.width=(au.currentTime/au.duration*100)+'%';
+    cur.textContent=fmt(au.currentTime);
+  });
+  bar.addEventListener('click',function(e){
+    var r=bar.getBoundingClientRect(),f=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));
+    if(au.duration){try{au.currentTime=f*au.duration;}catch(err){}}
+    else{
+      au.addEventListener('loadedmetadata',function(){try{au.currentTime=f*au.duration;}catch(err){}},{once:true});
+      var p=au.play();if(p&&p.catch)p.catch(function(){});
+    }
+  });
 })();
 (function(){
   var intro=document.getElementById('intro');
