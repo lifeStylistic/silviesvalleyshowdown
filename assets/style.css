@@ -401,3 +401,9 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   .an-title{font-size:25px;margin-bottom:14px;}
   .an-controls{width:100%;}
 }
+.an-cover{cursor:pointer;}
+.anthem.loading .an-play{animation:anBuffer 1s ease-in-out infinite;}
+@keyframes anBuffer{
+  0%,100%{box-shadow:0 0 0 0 rgba(216,182,117,.55);}
+  50%{box-shadow:0 0 0 12px rgba(216,182,117,0);}
+}

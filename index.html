@@ -117,7 +117,7 @@
     <div class="sec-title serif">The Official Anthem</div><div class="rule"></div>
     <div class="sec-sub">One song. Eight legends. Play it loud.</div></div>
   <div class="anthem" id="anthem">
-    <img class="an-cover" src="assets/img/anthem-cover.jpg" alt="Silvies Valley Showdown anthem cover art">
+    <img class="an-cover" id="an-cover" src="assets/img/anthem-cover.jpg" alt="Silvies Valley Showdown anthem cover art">
     <div class="an-body">
       <div class="an-kicker">The Showdown Sessions</div>
       <div class="an-title serif">&ldquo;Silvies Valley Showdown&rdquo;</div>
@@ -133,7 +133,7 @@
     </div>
   </div>
 </div></section>
-<audio id="anthem-audio" src="assets/audio/anthem.mp3" preload="none"></audio>
+<audio id="anthem-audio" src="assets/audio/anthem.mp3" preload="metadata"></audio>
 <footer class="site-footer"><div class="ft-inner">
   <div class="ft-badge"><img src="assets/img/logo.png" alt="Silvies Valley Ranch"></div>
   <div class="ft-tag">8 Guys &bull; 3 Nights &bull; A Ridiculous Amount of Golf</div>
@@ -171,12 +171,19 @@
       fill=document.getElementById('an-fill'),cur=document.getElementById('an-cur'),
       dur=document.getElementById('an-dur');
   function fmt(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+((s%60<10?'0':'')+s%60);}
-  btn.addEventListener('click',function(){
-    if(au.paused){var p=au.play();if(p&&p.catch)p.catch(function(){});}
-    else{au.pause();}
-  });
+  function toggle(){
+    if(au.paused){
+      box.classList.add('loading');                 // instant feedback while the mp3 buffers
+      var p=au.play();
+      if(p&&p.catch)p.catch(function(){box.classList.remove('loading');});
+    }else{au.pause();}
+  }
+  btn.addEventListener('click',toggle);
+  document.getElementById('an-cover').addEventListener('click',toggle);
   au.addEventListener('play',function(){box.classList.add('playing');});
-  au.addEventListener('pause',function(){box.classList.remove('playing');});
+  au.addEventListener('playing',function(){box.classList.remove('loading');});
+  au.addEventListener('waiting',function(){box.classList.add('loading');});
+  au.addEventListener('pause',function(){box.classList.remove('playing');box.classList.remove('loading');});
   au.addEventListener('ended',function(){
     box.classList.remove('playing');fill.style.width='0';cur.textContent='0:00';
     try{au.currentTime=0;}catch(e){}
