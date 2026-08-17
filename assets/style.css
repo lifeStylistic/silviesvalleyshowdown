@@ -407,7 +407,7 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   0%,100%{box-shadow:0 0 0 0 rgba(216,182,117,.55);}
   50%{box-shadow:0 0 0 12px rgba(216,182,117,0);}
 }
-#anthem{scroll-margin-top:84px;}
+#soundtracks{scroll-margin-top:84px;}
 @media (max-width:600px){
   .nav-inner{padding:9px 12px;gap:10px;}
   .nav-links{gap:1px;}
@@ -415,3 +415,10 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
 }
 .rname.open{font-style:italic;font-weight:500;color:var(--tan);font-size:14px;line-height:1.35;}
 .rname.open .rnum{background:var(--gold);color:#2a1c10;font-style:normal;}
+.anthem-list{display:grid;gap:22px;}
+.anthem-list{max-width:760px;margin:0 auto;}
+.anthem-list .anthem{max-width:none;margin:0;}
+@media (max-width:640px){
+  .an-body{width:100%;}
+}
+.c-name.open{font-style:italic;color:var(--tan);font-weight:500;}
