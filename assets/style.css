@@ -413,3 +413,5 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   .nav-links{gap:1px;}
   .nav-links a{padding:7px 7px;font-size:11.5px;letter-spacing:.05em;}
 }
+.rname.open{font-style:italic;font-weight:500;color:var(--tan);font-size:14px;line-height:1.35;}
+.rname.open .rnum{background:var(--gold);color:#2a1c10;font-style:normal;}
