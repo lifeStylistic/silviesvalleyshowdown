@@ -96,10 +96,83 @@
       These never affect the lodging ledger above.</p></div></div>
   <div class="table-scroll"><table class="trip">
     <thead><tr><th>Item</th><th>Basis</th><th class="num">Confirmed Cost / Person</th></tr></thead>
-    <tbody><tr><td class="c-name">Championship Golf (green fees)</td><td class="c-basis">Per round</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Replay / Second Round</td><td class="c-basis">Per round</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Par-3 Course</td><td class="c-basis">Per round</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">McVeigh's Gauntlet (7-hole)</td><td class="c-basis">Per round</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Goat Caddies</td><td class="c-basis">Per outing</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Cowboy Dinner</td><td class="c-basis">Per person</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Shooting</td><td class="c-basis">Per person</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Horseback Riding</td><td class="c-basis">Per person</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">UTV / Ranch Activities</td><td class="c-basis">Per person</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Spa</td><td class="c-basis">Per treatment</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Whiskey / Scotch Tasting</td><td class="c-basis">Per person</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr><tr><td class="c-name">Other Optional Activities</td><td class="c-basis">Varies</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr></tbody>
+    <tbody><tr><td class="c-name">Golf &mdash; Friday First Round</td><td class="c-basis">Per round</td><td class="num">$200</td></tr><tr><td class="c-name">Golf &mdash; Friday Second Round (replay)</td><td class="c-basis">Per round</td><td class="num">$90</td></tr><tr><td class="c-name">Golf &mdash; Saturday First Round</td><td class="c-basis">Per round</td><td class="num">$200</td></tr><tr><td class="c-name">Golf &mdash; Saturday Second Round (replay)</td><td class="c-basis">Per round</td><td class="num">$90</td></tr><tr><td class="c-name">Golf &mdash; Sunday Goat Caddy Round (Egan Course)</td><td class="c-basis">Per round</td><td class="num">$167</td></tr><tr><td class="c-name">Ranch Activities &mdash; UTV Tour, Target Sports, Horseback Riding, Spirit Tasting</td><td class="c-basis">Per person, per activity</td><td class="num">$220</td></tr><tr><td class="c-name">Spa &mdash; Pool, Hot Tubs, Sauna &amp; Gym</td><td class="c-basis">Daily 9 AM&ndash;5 PM</td><td class="num"><span class="chip-st paid">INCLUDED</span></td></tr><tr><td class="c-name">Cowboy Dinner (Saturday night)</td><td class="c-basis">Per person</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr></tbody>
   </table></div>
-  <p class="fine">No golf or activity pricing has been verified with Silvies yet &mdash; rates will be added as confirmed.</p>
+  <p class="fine">Pricing confirmed with the resort. Thursday&rsquo;s arrival-day round and the Cowboy Dinner are
+    still being finalized. Everything here is paid directly to Silvies &mdash; none of it touches the lodging ledger above.</p>
 </div></section>
+
+<section class="section cream"><div class="wrap">
+  <div class="sec-head"><div class="sec-eyebrow">Build Your Tab</div>
+    <div class="sec-title serif">Showdown Cost Calculator</div><div class="rule"></div>
+    <div class="sec-sub">Pick your rounds and adventures &mdash; see what you&rsquo;ll owe the ranch.</div></div>
+  <div class="calc" id="calc">
+    <div class="calc-cols">
+      <div>
+        <div class="calc-group-title">The Golf</div>
+        <label class="calc-item"><input type="checkbox" data-price="200" data-kind="golf"><span class="ci-box"></span>
+          <span class="ci-name">Friday &middot; First Round</span><span class="ci-price">$200</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="90" data-kind="golf"><span class="ci-box"></span>
+          <span class="ci-name">Friday &middot; Second Round<em>afternoon replay</em></span><span class="ci-price">$90</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="200" data-kind="golf"><span class="ci-box"></span>
+          <span class="ci-name">Saturday &middot; First Round</span><span class="ci-price">$200</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="90" data-kind="golf"><span class="ci-box"></span>
+          <span class="ci-name">Saturday &middot; Second Round<em>afternoon replay</em></span><span class="ci-price">$90</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="167" data-kind="golf"><span class="ci-box"></span>
+          <span class="ci-name">Sunday &middot; Goat Caddy Round<em>Egan Course &mdash; goats included</em></span><span class="ci-price">$167</span></label>
+      </div>
+      <div>
+        <div class="calc-group-title">Ranch Adventures &mdash; $220 each</div>
+        <label class="calc-item"><input type="checkbox" data-price="220" data-kind="act"><span class="ci-box"></span>
+          <span class="ci-name">UTV Tour</span><span class="ci-price">$220</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="220" data-kind="act"><span class="ci-box"></span>
+          <span class="ci-name">Target Sports</span><span class="ci-price">$220</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="220" data-kind="act"><span class="ci-box"></span>
+          <span class="ci-name">Horseback Riding</span><span class="ci-price">$220</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="220" data-kind="act"><span class="ci-box"></span>
+          <span class="ci-name">Spirit Tasting</span><span class="ci-price">$220</span></label>
+        <div class="calc-note">Spa access &mdash; pool, hot tubs, sauna &amp; gym &mdash; is included with your stay. Open 9&ndash;5 daily.</div>
+      </div>
+    </div>
+    <div class="calc-total">
+      <div class="ct-left">
+        <div class="ct-label">Your Ranch Tab</div>
+        <div class="ct-sub" id="calc-sub">Select your lineup above</div>
+      </div>
+      <div class="ct-num" id="calc-total">$0</div>
+      <button class="ct-fullsend" id="calc-fullsend" type="button">The Full Send</button>
+    </div>
+  </div>
+  <p class="fine" style="text-align:center;">Per person. Paid directly to Silvies at the ranch &mdash; separate from the lodging ledger.</p>
+</div></section>
+<script>
+(function(){
+  var boxes=document.querySelectorAll('#calc input[type=checkbox]');
+  if(!boxes.length)return;
+  var tot=document.getElementById('calc-total'),sub=document.getElementById('calc-sub'),
+      fs=document.getElementById('calc-fullsend');
+  function allChecked(){var all=true;boxes.forEach(function(b){if(!b.checked)all=false;});return all;}
+  function update(){
+    var sum=0,golf=0,act=0;
+    boxes.forEach(function(b){
+      if(b.checked){sum+=+b.dataset.price;if(b.dataset.kind==='golf')golf++;else act++;}
+    });
+    tot.textContent='$'+sum.toLocaleString('en-US');
+    var bits=[];
+    if(golf)bits.push(golf+(golf===1?' round':' rounds'));
+    if(act)bits.push(act+(act===1?' activity':' activities'));
+    sub.textContent=bits.length?bits.join(' + '):'Select your lineup above';
+    fs.textContent=allChecked()?'Dial It Back':'The Full Send';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',update);});
+  fs.addEventListener('click',function(){
+    var target=!allChecked();
+    boxes.forEach(function(b){b.checked=target;});
+    update();
+  });
+  update();
+})();
+</script>
 <footer class="site-footer"><div class="ft-inner">
   <div class="ft-badge"><img src="assets/img/logo.png" alt="Silvies Valley Ranch"></div>
   <div class="ft-tag">8 Guys &bull; 3 Nights &bull; A Ridiculous Amount of Golf</div>
@@ -122,11 +195,37 @@
         box.style.transition='opacity 2000ms ease-out';
         box.style.opacity='0.18';
       },1000);
-      setTimeout(function(){
-        box.classList.add('kgb-tap');
-        box.addEventListener('click',speak);
-      },3100);
+      setTimeout(armTap,3100);
     },1500);
+  }
+  /* Tap-to-talk that only fires on KGB's actual pixels: the fixed overlay is
+     pointer-events:none, so page links/buttons beneath stay clickable; a
+     capture-phase listener alpha-tests the cutout and claims only real hits. */
+  function armTap(){
+    var cv=document.createElement('canvas'),cx=null;
+    function ready(){
+      if(cx)return true;
+      if(!img.complete||!img.naturalWidth)return false;
+      cv.width=img.naturalWidth;cv.height=img.naturalHeight;
+      var c=cv.getContext('2d');
+      try{c.drawImage(img,0,0);c.getImageData(0,0,1,1);}catch(e){return false;}
+      cx=c;return true;
+    }
+    document.addEventListener('click',function(e){
+      if(talking)return;
+      if(e.target&&e.target.closest&&e.target.closest('a,button,label,input,select,textarea'))return;
+      var r=img.getBoundingClientRect();
+      if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)return;
+      if(!ready())return;
+      var scale=Math.min(r.width/img.naturalWidth,r.height/img.naturalHeight);
+      var dw=img.naturalWidth*scale,dh=img.naturalHeight*scale;
+      var ox=r.left+(r.width-dw)/2,oy=r.top+(r.height-dh)/2;
+      var x=Math.floor((e.clientX-ox)/scale),y=Math.floor((e.clientY-oy)/scale);
+      if(x<0||y<0||x>=img.naturalWidth||y>=img.naturalHeight)return;
+      if(cx.getImageData(x,y,1,1).data[3]>40){
+        e.preventDefault();e.stopPropagation();speak();
+      }
+    },true);
   }
   function speak(){
     if(talking)return;talking=true;

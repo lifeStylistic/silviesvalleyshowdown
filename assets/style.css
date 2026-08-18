@@ -299,7 +299,7 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   justify-content:center;opacity:0;pointer-events:none;}
 .kgb-flash img{max-width:88vw;max-height:82vh;object-fit:contain;transform:scale(.55);
   filter:drop-shadow(0 14px 44px rgba(0,0,0,.45));}
-.kgb-flash.kgb-tap{pointer-events:auto;cursor:pointer;}
+/* tap-to-talk hit-testing is alpha-based in JS; the overlay itself never blocks the page */
 .kgb-flash.talking img{animation:kgbTalk .48s ease-in-out infinite;}
 @keyframes kgbTalk{0%,100%{transform:scale(1) rotate(-1.3deg);}50%{transform:scale(1.035) rotate(1.5deg);}}
 
@@ -428,4 +428,42 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
 .an-dl:hover{transform:scale(1.08);background:rgba(216,182,117,.15);box-shadow:0 0 18px rgba(216,182,117,.3);}
 @media (max-width:640px){
   .an-dl{margin-top:-2px;}
+}
+
+/* ---- Showdown cost calculator ---- */
+.calc{max-width:860px;margin:0 auto;background:#fff;border:1px solid var(--line);
+  border-radius:16px;box-shadow:0 14px 40px rgba(51,36,26,.12);overflow:hidden;}
+.calc-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;padding:22px 32px 18px;}
+.calc-group-title{font-family:'Oswald';text-transform:uppercase;letter-spacing:.18em;
+  font-size:12px;color:var(--gold-d);margin:12px 0 6px;}
+.calc-item{display:flex;align-items:center;gap:12px;padding:11px 0;
+  border-bottom:1px solid var(--line);cursor:pointer;position:relative;}
+.calc-item input{position:absolute;opacity:0;pointer-events:none;}
+.ci-box{flex:none;width:22px;height:22px;border-radius:6px;border:2px solid var(--gold-d);
+  position:relative;background:#fff;transition:.15s;}
+.calc-item:hover .ci-box{box-shadow:0 0 0 4px rgba(195,154,82,.15);}
+.calc-item input:checked+.ci-box{background:var(--gold);border-color:var(--gold);}
+.calc-item input:checked+.ci-box:after{content:'';position:absolute;left:6px;top:2px;
+  width:6px;height:11px;border:solid #2a1c10;border-width:0 2.5px 2.5px 0;transform:rotate(42deg);}
+.ci-name{flex:1;font-weight:600;font-size:15px;line-height:1.25;}
+.ci-name em{display:block;font-style:normal;font-weight:500;font-size:12.5px;color:var(--tan);}
+.ci-price{font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums;}
+.calc-note{margin-top:14px;padding:12px 14px;background:var(--paper);border:1px solid var(--line);
+  border-radius:10px;font-size:13.5px;color:var(--tan);line-height:1.45;}
+.calc-total{display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  background:linear-gradient(140deg,#3b2a1d,#241811);padding:20px 32px;}
+.ct-label{font-family:'Oswald';text-transform:uppercase;letter-spacing:.2em;
+  font-size:12px;color:var(--gold);}
+.ct-sub{font-size:13.5px;color:rgba(246,239,224,.75);margin-top:3px;}
+.ct-num{font-family:'Playfair Display',serif;font-weight:700;font-size:42px;
+  color:var(--gold-l);margin-left:auto;font-variant-numeric:tabular-nums;line-height:1;}
+.ct-fullsend{font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:13px;
+  padding:11px 18px;border-radius:9px;border:1.5px solid var(--gold);cursor:pointer;
+  background:transparent;color:var(--gold-l);transition:.15s;}
+.ct-fullsend:hover{background:var(--gold);color:#2a1c10;}
+@media (max-width:700px){
+  .calc-cols{grid-template-columns:1fr;padding:18px 20px 14px;}
+  .calc-total{padding:18px 20px;gap:12px;}
+  .ct-num{font-size:34px;}
+  .ct-fullsend{width:100%;order:3;}
 }
