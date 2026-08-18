@@ -422,3 +422,10 @@ table.trip td{padding:10px 16px;border-bottom:1px solid var(--line);font-size:14
   .an-body{width:100%;}
 }
 .c-name.open{font-style:italic;color:var(--tan);font-weight:500;}
+.an-dl{flex:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(216,182,117,.55);color:var(--gold-l);font-size:20px;line-height:1;
+  transition:transform .2s,box-shadow .2s,background .2s;}
+.an-dl:hover{transform:scale(1.08);background:rgba(216,182,117,.15);box-shadow:0 0 18px rgba(216,182,117,.3);}
+@media (max-width:640px){
+  .an-dl{margin-top:-2px;}
+}
