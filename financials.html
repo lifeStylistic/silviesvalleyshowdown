@@ -96,9 +96,9 @@
       These never affect the lodging ledger above.</p></div></div>
   <div class="table-scroll"><table class="trip">
     <thead><tr><th>Item</th><th>Basis</th><th class="num">Confirmed Cost / Person</th></tr></thead>
-    <tbody><tr><td class="c-name">Golf &mdash; Friday First Round</td><td class="c-basis">Per round</td><td class="num">$200</td></tr><tr><td class="c-name">Golf &mdash; Friday Second Round (replay)</td><td class="c-basis">Per round</td><td class="num">$90</td></tr><tr><td class="c-name">Golf &mdash; Saturday First Round</td><td class="c-basis">Per round</td><td class="num">$200</td></tr><tr><td class="c-name">Golf &mdash; Saturday Second Round (replay)</td><td class="c-basis">Per round</td><td class="num">$90</td></tr><tr><td class="c-name">Golf &mdash; Sunday Goat Caddy Round (Egan Course)</td><td class="c-basis">Per round</td><td class="num">$167</td></tr><tr><td class="c-name">Ranch Activities &mdash; UTV Tour, Target Sports, Horseback Riding, Spirit Tasting</td><td class="c-basis">Per person, per activity</td><td class="num">$220</td></tr><tr><td class="c-name">Spa &mdash; Pool, Hot Tubs, Sauna &amp; Gym</td><td class="c-basis">Daily 9 AM&ndash;5 PM</td><td class="num"><span class="chip-st paid">INCLUDED</span></td></tr><tr><td class="c-name">Cowboy Dinner (Saturday night)</td><td class="c-basis">Per person</td><td class="num"><span class="tbd">Pending confirmation</span></td></tr></tbody>
+    <tbody><tr><td class="c-name">Golf &mdash; Friday First Round</td><td class="c-basis">Per round</td><td class="num">$200</td></tr><tr><td class="c-name">Golf &mdash; Friday Second Round (replay)</td><td class="c-basis">Per round</td><td class="num">$90</td></tr><tr><td class="c-name">Golf &mdash; Saturday First Round</td><td class="c-basis">Per round</td><td class="num">$200</td></tr><tr><td class="c-name">Golf &mdash; Saturday Second Round (replay)</td><td class="c-basis">Per round</td><td class="num">$90</td></tr><tr><td class="c-name">Golf &mdash; Sunday Goat Caddy Round (Egan Course)</td><td class="c-basis">Per round</td><td class="num">$167</td></tr><tr><td class="c-name">Ranch Activities &mdash; UTV Tour, Target Sports, Horseback Riding, Spirit Tasting</td><td class="c-basis">Per person, per activity</td><td class="num">$220</td></tr><tr><td class="c-name">Spa &mdash; Pool, Hot Tubs, Sauna &amp; Gym</td><td class="c-basis">Daily 9 AM&ndash;5 PM</td><td class="num"><span class="chip-st paid">INCLUDED</span></td></tr><tr><td class="c-name">Dinner &mdash; Thursday night</td><td class="c-basis">Per person</td><td class="num">$90</td></tr><tr><td class="c-name">Dinner &mdash; Friday night</td><td class="c-basis">Per person</td><td class="num">$65</td></tr><tr><td class="c-name">Cowboy Dinner &mdash; Saturday night</td><td class="c-basis">Per person</td><td class="num">$90</td></tr></tbody>
   </table></div>
-  <p class="fine">Pricing confirmed with the resort. Cowboy Dinner pricing is still being finalized. Everything here is paid directly to Silvies &mdash; none of it touches the lodging ledger above.</p>
+  <p class="fine">All pricing confirmed with the resort. Everything here is paid directly to Silvies &mdash; none of it touches the lodging ledger above.</p>
 </div></section>
 
 <section class="section cream"><div class="wrap">
@@ -130,6 +130,13 @@
           <span class="ci-name">Horseback Riding</span><span class="ci-price">$220</span></label>
         <label class="calc-item"><input type="checkbox" data-price="220" data-kind="act"><span class="ci-box"></span>
           <span class="ci-name">Spirit Tasting</span><span class="ci-price">$220</span></label>
+        <div class="calc-group-title">The Dinners</div>
+        <label class="calc-item"><input type="checkbox" data-price="90" data-kind="din"><span class="ci-box"></span>
+          <span class="ci-name">Thursday Dinner</span><span class="ci-price">$90</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="65" data-kind="din"><span class="ci-box"></span>
+          <span class="ci-name">Friday Dinner</span><span class="ci-price">$65</span></label>
+        <label class="calc-item"><input type="checkbox" data-price="90" data-kind="din"><span class="ci-box"></span>
+          <span class="ci-name">Cowboy Dinner<em>Saturday night</em></span><span class="ci-price">$90</span></label>
         <div class="calc-note">Spa access &mdash; pool, hot tubs, sauna &amp; gym &mdash; is included with your stay. Open 9&ndash;5 daily.</div>
       </div>
     </div>
@@ -152,14 +159,20 @@
       fs=document.getElementById('calc-fullsend');
   function allChecked(){var all=true;boxes.forEach(function(b){if(!b.checked)all=false;});return all;}
   function update(){
-    var sum=0,golf=0,act=0;
+    var sum=0,golf=0,act=0,din=0;
     boxes.forEach(function(b){
-      if(b.checked){sum+=+b.dataset.price;if(b.dataset.kind==='golf')golf++;else act++;}
+      if(b.checked){
+        sum+=+b.dataset.price;
+        if(b.dataset.kind==='golf')golf++;
+        else if(b.dataset.kind==='din')din++;
+        else act++;
+      }
     });
     tot.textContent='$'+sum.toLocaleString('en-US');
     var bits=[];
     if(golf)bits.push(golf+(golf===1?' round':' rounds'));
     if(act)bits.push(act+(act===1?' activity':' activities'));
+    if(din)bits.push(din+(din===1?' dinner':' dinners'));
     sub.textContent=bits.length?bits.join(' + '):'Select your lineup above';
     fs.textContent=allChecked()?'Dial It Back':'The Full Send';
   }
