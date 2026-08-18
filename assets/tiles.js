@@ -89,7 +89,7 @@
   document.addEventListener('click',function(e){
     var a=e.target&&e.target.closest?e.target.closest('a'):null;
     if(!a)return;
-    if(a.target==='_blank'||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    if(a.target==='_blank'||a.hasAttribute('download')||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     var raw=a.getAttribute('href')||'';
     if(!raw||raw.charAt(0)==='#')return;
     var u;try{u=new URL(a.href,location.href);}catch(err){return;}
