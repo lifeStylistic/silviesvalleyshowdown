@@ -117,18 +117,22 @@
 <script src="assets/oldjoe.js" defer></script>
 <script>
 (function(){
-  var fig=document.getElementById('hole2'); if(!fig)return;
   var au=new Audio('assets/audio/goat-bleat.mp3'); au.preload='auto';
-  var unlocked=false;
-  function play(){ try{au.currentTime=0;}catch(e){} au.play().then(function(){unlocked=true;}).catch(function(){}); }
-  fig.addEventListener('mouseenter',play);
-  fig.addEventListener('click',play);
-  document.addEventListener('pointerdown',function(){
-    if(unlocked)return;
-    au.muted=true;
-    au.play().then(function(){au.pause();au.currentTime=0;au.muted=false;unlocked=true;})
-      .catch(function(){au.muted=false;});
-  },{once:true});
+  var greeted=false;
+  function play(){ try{au.currentTime=0;}catch(e){} return au.play().then(function(){greeted=true;}); }
+  function greet(){ if(!greeted) play().catch(function(){}); }
+  // bleat the moment the page opens (if the browser allows it)...
+  play().catch(function(){
+    // ...otherwise the instant they touch anything
+    ['pointerdown','keydown','touchend'].forEach(function(ev){
+      document.addEventListener(ev,greet,{once:true,capture:true});
+    });
+  });
+  var fig=document.getElementById('hole2');
+  if(fig){
+    fig.addEventListener('mouseenter',function(){ play().catch(function(){}); });
+    fig.addEventListener('click',function(){ play().catch(function(){}); });
+  }
 })();
 </script>
 </body></html>
