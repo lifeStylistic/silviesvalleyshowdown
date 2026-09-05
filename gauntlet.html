@@ -35,6 +35,10 @@
   <div class="sec-head"><div class="sec-eyebrow">The Course</div>
     <div class="sec-title serif">Fantasy Golf on the Ridges</div><div class="rule"></div>
     <div class="sec-sub">Unlike any other course in Oregon.</div></div>
+  <figure class="hole2" id="hole2">
+    <img src="assets/img/gauntlet-hole2.jpg" alt="The infamous all-carry 2nd hole at McVeigh's Gauntlet — a green perched across a sagebrush ravine">
+    <figcaption>The infamous 2nd hole. All carry. <span class="hole2-hint">Hover &mdash; or tap &mdash; for the goat&rsquo;s take. &#128016;</span></figcaption>
+  </figure>
   <div class="rounds">
     <div class="daycard"><div class="dc-head"><div class="dc-day">THE STORY</div>
         <div class="dc-date">OPENED 2017</div></div>
@@ -111,4 +115,20 @@
 </div></footer><script src="assets/vendor/html2canvas.min.js" defer></script>
 <script src="assets/tiles.js" defer></script>
 <script src="assets/oldjoe.js" defer></script>
+<script>
+(function(){
+  var fig=document.getElementById('hole2'); if(!fig)return;
+  var au=new Audio('assets/audio/goat-bleat.mp3'); au.preload='auto';
+  var unlocked=false;
+  function play(){ try{au.currentTime=0;}catch(e){} au.play().then(function(){unlocked=true;}).catch(function(){}); }
+  fig.addEventListener('mouseenter',play);
+  fig.addEventListener('click',play);
+  document.addEventListener('pointerdown',function(){
+    if(unlocked)return;
+    au.muted=true;
+    au.play().then(function(){au.pause();au.currentTime=0;au.muted=false;unlocked=true;})
+      .catch(function(){au.muted=false;});
+  },{once:true});
+})();
+</script>
 </body></html>
